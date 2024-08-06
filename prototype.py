@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 import plotly.express as px
 import os
 
@@ -54,7 +53,7 @@ with tabs[1]:
     
     selected_field = st.selectbox("Select Field", ['Count_RedCellsInWell', 'Count_GreenCells', 'Count_AllCellsInWell_sepparate', 'Threshold_FinalThreshold_AllCellsInWell_sepparate', 'Threshold_FinalThreshold_RedCells'])
     # Create DataFrame for plotting
-    violin_df = pd.DataFrame(np.array(df[selected_field]).reshape(102, 5), columns=df['Day'].unique() )
+    violin_df = pd.DataFrame(df[selected_field].values.reshape(102, 5), columns=df['Day'].unique() )
     violin_df = violin_df.melt(var_name='Day', value_name=selected_field)
     fig = px.violin(violin_df, y=selected_field, x='Day', box=True, points="all")
     st.plotly_chart(fig)
